@@ -17,5 +17,9 @@ router.get(
     "/:id",
     serviceController.getSingleService,
 )
+router.get(
+    "/",
+    serviceController.getAllService,
+)
 
 export const servicRoute = router;
