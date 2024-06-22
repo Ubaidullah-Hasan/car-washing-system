@@ -10,6 +10,16 @@ const createService = z.object({
     })
 });
 
+const updateService = z.object({
+    body: z.object({
+        name: z.string({ message: "Name is required" }).optional(),
+        description: z.string({ message: "Description is required" }).optional(),
+        price: z.number({ message: "Price must be a positive number" }).optional(),
+        duration: z.number({ message: "Duration must be a positive number" }).optional(),
+    })
+});
+
 export const serviceValidationSchema = {
     createService,
+    updateService
 }

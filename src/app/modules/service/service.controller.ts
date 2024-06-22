@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import httpStatus from "http-status";
 import { catchAsync } from "../../utils/catchAsync";
-import { sserviceServices } from "./service.service";
 import sendResponse from "../../utils/sendResponse";
+import { serviceServices } from "./service.service";
 
 const createService = catchAsync(async (req, res, next) => {
-    const result = await sserviceServices.createServiceIntoDB(req?.body);
+    const result = await serviceServices.createServiceIntoDB(req?.body);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -16,8 +16,8 @@ const createService = catchAsync(async (req, res, next) => {
 });
 
 const getSingleService = catchAsync(async (req, res, next) => {
-    const {id} = req.params;
-    const result = await sserviceServices.getSingleServiceFromDB(id);
+    const { id } = req.params;
+    const result = await serviceServices.getSingleServiceFromDB(id);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -28,7 +28,7 @@ const getSingleService = catchAsync(async (req, res, next) => {
 });
 
 const getAllService = catchAsync(async (req, res, next) => {
-    const result = await sserviceServices.getAllServiceFromDB();
+    const result = await serviceServices.getAllServiceFromDB();
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -38,8 +38,21 @@ const getAllService = catchAsync(async (req, res, next) => {
     });
 });
 
+const updateService = catchAsync(async (req, res, next) => {
+    const { id } = req.params;
+    const result = await serviceServices.updateServiceIntoDB(id, req?.body);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Service updated successfully",
+        data: result,
+    });
+});
+
 export const serviceController = {
     createService,
     getSingleService,
-    getAllService
+    getAllService,
+    updateService,
 }

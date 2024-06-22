@@ -22,4 +22,11 @@ router.get(
     serviceController.getAllService,
 )
 
+router.put(
+    "/:id",
+    auth(USER_ROLE.admin),
+    validateRequest(serviceValidationSchema.updateService),
+    serviceController.updateService,
+)
+
 export const servicRoute = router;
