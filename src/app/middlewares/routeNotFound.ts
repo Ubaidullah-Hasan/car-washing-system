@@ -10,4 +10,3 @@ const routeNotFound = (req: Request, res: Response) => {
 };
 
 export default routeNotFound;
-

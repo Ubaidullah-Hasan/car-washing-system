@@ -12,17 +12,14 @@ app.use(express.json());
 
 app.use("/api", router);
 
-
 app.get("/", (req: Request, res: Response) => {
   res.send("Server Is Running!");
 });
-
 
 // global error handler middlewares
 app.use(globalErrorHandler);
 
 // not found middleware
 app.use(routeNotFound);
-
 
 export default app;

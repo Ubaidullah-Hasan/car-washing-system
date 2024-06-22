@@ -33,7 +33,6 @@ process.on("unhandledRejection", () => {
   process.exit(1);
 });
 
-
 process.on("uncaughtException", () => {
   console.log("UncaughtException rejection is detected, Sutting down...");
   process.exit(1);
