@@ -15,10 +15,9 @@ const auth = (...requiredRoles: TUserRole[]) => {
         if (!authorizationHeader || !authorizationHeader.startsWith("Bearer ")) {
             throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized to access this! Token is missing or invalid.");
         }
-        console.log({authorizationHeader, requiredRoles});
 
         const token = authorizationHeader.split(" ")[1];
-        
+
         // if the token is sent from the client
         if (!token) {
             throw new AppError(httpStatus?.UNAUTHORIZED, "You are not authorized to access this!")
@@ -28,8 +27,8 @@ const auth = (...requiredRoles: TUserRole[]) => {
         // check if the token is valid
         const decoded = jwt.verify(token, config.jwt_access_secret as string) as JwtPayload;
         // decoded 
-        const { email, role } = decoded; 
-
+        const { email, role } = decoded; // todo: where form userId
+        
         // check if user is exists
         if (!(await UserModel.isUserExistByCustomEmail(email))) {
             throw new AppError(httpStatus.NOT_FOUND, "User not found!")

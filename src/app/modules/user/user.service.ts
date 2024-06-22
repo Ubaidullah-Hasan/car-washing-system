@@ -27,9 +27,9 @@ const loginUser = async (payload: TLoginUser) => {
   }
 
 
-  // // Access Granted : Send AccessToken , RefreshToken
+  // // Access Granted : Send AccessToken 
   const jwtPayload = {
-    userId: user?.email,
+    email: user?.email,
     role: user?.role,
   };
 
