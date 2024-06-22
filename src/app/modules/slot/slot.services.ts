@@ -18,7 +18,7 @@ const createSlotIntoDB = async (payload: TSlot) => {
 
     const startTime = payload?.startTime;
     const endTime = payload?.endTime;
-    const serviceDuration = 60; // minutes
+    const serviceDuration = isServiceExist?.duration; // minutes
 
     // Generate time slots
     const timeSlots = generateTimeSlots(startTime, endTime, serviceDuration);
@@ -42,7 +42,27 @@ const createSlotIntoDB = async (payload: TSlot) => {
     return createdSlot;
 }
 
+const getAvailableSlots = async (query: Record<string, unknown>) => {
+    const { date, serviceId } = query;
+
+    // Build the query object for MongoDB
+    const queryObj: Record<string, unknown> = { isBooked: "available" };
+
+    if (date) {
+        queryObj.date = date; 
+    }
+
+    if (serviceId) {
+        queryObj.service = serviceId;
+    }
+
+    const slots = await SlotModel.find(queryObj)
+        .populate("service");
+
+    return slots;
+};
+
 export const slotServices = {
     createSlotIntoDB,
-
+    getAvailableSlots,
 }
