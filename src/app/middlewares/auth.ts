@@ -10,7 +10,15 @@ import { UserModel } from "../modules/user/user.model";
 
 const auth = (...requiredRoles: TUserRole[]) => {
     return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-        const token = req.headers.authorization;
+        const authorizationHeader = req.headers.authorization;
+
+        if (!authorizationHeader || !authorizationHeader.startsWith("Bearer ")) {
+            throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized to access this! Token is missing or invalid.");
+        }
+        console.log({authorizationHeader, requiredRoles});
+
+        const token = authorizationHeader.split(" ")[1];
+        
         // if the token is sent from the client
         if (!token) {
             throw new AppError(httpStatus?.UNAUTHORIZED, "You are not authorized to access this!")
