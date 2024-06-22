@@ -32,14 +32,14 @@ const loginUser = async (payload: TLoginUser) => {
     email: user?.email,
     role: user?.role,
   };
-
+console.log(jwtPayload)
 
   const accessToken = createToken(
     jwtPayload,
     config.jwt_access_secret as string,
     config.jwt_access_secret_expire_in as string
   )
-  
+
   user.password = ''
 
   return {
