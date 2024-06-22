@@ -50,9 +50,22 @@ const updateService = catchAsync(async (req, res, next) => {
     });
 });
 
+const deleteService = catchAsync(async (req, res, next) => {
+    const { id } = req.params;
+    const result = await serviceServices.deleteServiceFromDB(id);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Service deleted successfully",
+        data: result,
+    });
+});
+
 export const serviceController = {
     createService,
     getSingleService,
     getAllService,
     updateService,
+    deleteService
 }
