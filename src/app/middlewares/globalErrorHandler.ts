@@ -19,7 +19,6 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     path: "",
     message: "Something went wrong!",
   }]
-  console.log("hit global error handler!")
 
   if (err instanceof ZodError) {
     const simplifiedError = handleZodError(err);
