@@ -5,40 +5,37 @@ import { catchAsync } from "../../utils/catchAsync";
 import { slotServices } from "./slot.services";
 
 const createSlot = catchAsync(async (req, res, next) => {
-    const result = await slotServices.createSlotIntoDB(req?.body);
+  const result = await slotServices.createSlotIntoDB(req?.body);
 
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
-        success: true,
-        message: "Slots created successfully",
-        data: result,
-    });
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Slots created successfully",
+    data: result,
+  });
 });
 const getAvailableSlots = catchAsync(async (req, res, next) => {
-    
-    const result = await slotServices.getAvailableSlots(req?.query);
-    
-    if (result.length === 0) {
-        sendResponse(res, {
-            statusCode: httpStatus.NOT_FOUND,
-            success: false,
-            message: "No Data Found",
-            data: result,
-        });
-        return;
-    }
+  const result = await slotServices.getAvailableSlots(req?.query);
 
+  if (result.length === 0) {
     sendResponse(res, {
-        statusCode: httpStatus.OK,
-        success: true,
-        message: "Available slots retrieved successfully",
-        data: result,
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: "No Data Found",
+      data: result,
     });
+    return;
+  }
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Available slots retrieved successfully",
+    data: result,
+  });
 });
 
-
 export const slotController = {
-    createSlot,
-    getAvailableSlots,
-
-}
+  createSlot,
+  getAvailableSlots,
+};

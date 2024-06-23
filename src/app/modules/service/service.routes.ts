@@ -10,37 +10,28 @@ import { slotController } from "../slot/slot.controller";
 const router = Router();
 
 router.post(
-    "/",
-    auth(USER_ROLE.admin),
-    validateRequest(serviceValidationSchema.createService),
-    serviceController.createService,
-)
-router.get(
-    "/:id",
-    serviceController.getSingleService,
-)
-router.get(
-    "/",
-    serviceController.getAllService,
-)
+  "/",
+  auth(USER_ROLE.admin),
+  validateRequest(serviceValidationSchema.createService),
+  serviceController.createService,
+);
+router.get("/:id", serviceController.getSingleService);
+router.get("/", serviceController.getAllService);
 
 router.put(
-    "/:id",
-    auth(USER_ROLE.admin),
-    validateRequest(serviceValidationSchema.updateService),
-    serviceController.updateService,
-)
+  "/:id",
+  auth(USER_ROLE.admin),
+  validateRequest(serviceValidationSchema.updateService),
+  serviceController.updateService,
+);
 
-router.delete(
-    "/:id",
-    auth(USER_ROLE.admin),
-    serviceController.deleteService,
-)
+router.delete("/:id", auth(USER_ROLE.admin), serviceController.deleteService);
 
-router.post('/slots',
-    auth(USER_ROLE.admin),
-    validateRequest(slotValidationSchema.createSlot),
-    slotController.createSlot
-)
+router.post(
+  "/slots",
+  auth(USER_ROLE.admin),
+  validateRequest(slotValidationSchema.createSlot),
+  slotController.createSlot,
+);
 
 export const servicRoute = router;

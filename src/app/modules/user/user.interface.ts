@@ -14,14 +14,16 @@ export type TUser = {
 
 export type TUserRole = keyof typeof USER_ROLE;
 
-
 export interface UserModelInterface extends Model<TUser> {
   isUserExistByCustomEmail(email: string): Promise<TUser>;
   isPasswordMatch(plainTextPas: string, hashedPass: string): Promise<boolean>;
-  isJWTIssuedBeforePasswordChanged(passwordChangeTime: Date, JWTIssuedTime: number): boolean;
+  isJWTIssuedBeforePasswordChanged(
+    passwordChangeTime: Date,
+    JWTIssuedTime: number,
+  ): boolean;
 }
 
 export type TLoginUser = {
   email: string;
   password: string;
-}
+};
