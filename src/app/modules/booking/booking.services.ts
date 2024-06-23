@@ -41,7 +41,6 @@ const getAllBookingFromDB = async () => {
         .populate("serviceId")
         .populate("slotId")
 
-
     return bookings;
 };
 
