@@ -39,7 +39,11 @@ const BookingSchema = new Schema<TBooking>({
         required: true,
         unique: true
     }
-});
+},
+{
+    timestamps: true,
+}
+);
 
 // Create and export Mongoose model
 export const BookingModel = model<TBooking>('Booking', BookingSchema);

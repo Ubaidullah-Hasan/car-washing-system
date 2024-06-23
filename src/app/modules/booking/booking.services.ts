@@ -34,6 +34,18 @@ const createBookingIntoDB = async (payload: TBooking, userEmail: string) => {
     return booking;
 };
 
+const getAllBookingFromDB = async () => {
+
+    const bookings = await BookingModel.find()
+        .populate("customer")
+        .populate("serviceId")
+        .populate("slotId")
+
+
+    return bookings;
+};
+
 export const bookingServices = {
     createBookingIntoDB,
+    getAllBookingFromDB,
 }
