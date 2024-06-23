@@ -3,6 +3,6 @@ import { slotController } from "./slot.controller";
 
 const router = Router();
 
-router.get("/", slotController.getAvailableSlots);
+router.get("/availability", slotController.getAvailableSlots);
 
 export const slotRoutes = router;

@@ -12,7 +12,7 @@ const createSlot = z.object({
     endTime: z.string({ message: "End time is required" }),
     isBooked: z.enum(["available", "booked", "canceled"], {
       message: "Status must be either 'available', 'booked', or 'canceled'",
-    }),
+    }).optional(),
   }),
 });
 
