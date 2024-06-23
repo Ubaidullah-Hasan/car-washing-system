@@ -4,10 +4,11 @@ import { TBooking } from "./booking.interface";
 import { BookingModel } from "./booking.model";
 import { ServiceModel } from "../service/service.model";
 import { UserModel } from "../user/user.model";
+import { SlotModel } from "../slot/slot.model";
 
 const createBookingIntoDB = async (payload: TBooking, userEmail: string) => {
-    const service = await ServiceModel.findById(payload?.serviceId)
-    const slot = await ServiceModel.findById(payload?.slotId)
+    const service = await ServiceModel.findById(payload?.serviceId);
+    const slot = await SlotModel.findById(payload?.slotId);
 
     if (!service) {
         throw new AppError(httpStatus.NOT_FOUND, "Service not found");
@@ -26,8 +27,9 @@ const createBookingIntoDB = async (payload: TBooking, userEmail: string) => {
 
     const booking = await BookingModel.findById(result?._id)
         .populate("customer")
-        .populate("service")
-        .populate("slot")
+        .populate("serviceId")
+        .populate("slotId")
+
 
     return booking;
 };
