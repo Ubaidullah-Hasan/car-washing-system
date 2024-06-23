@@ -8,12 +8,13 @@ import { bookingValidationSchema } from "./booking.validation";
 const router = Router();
 
 router.post(
-  "/",
+  "/bookings",
   auth(USER_ROLE.user),
   validateRequest(bookingValidationSchema.createBooking),
   bookingController.createBooking,
 );
-router.get("/", auth(USER_ROLE.admin), bookingController.getAllBookings);
+router.get("/bookings", auth(USER_ROLE.admin), bookingController.getAllBookings);
+
 router.get(
   "/my-bookings",
   auth(USER_ROLE.user),
