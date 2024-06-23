@@ -45,7 +45,20 @@ const getAllBookingFromDB = async () => {
     return bookings;
 };
 
+const getMyBookingFromDB = async (userEmail: string) => {
+    const user = await UserModel.findOne({ email: userEmail });
+    const userId = user?.id;
+
+
+    const bookings = await BookingModel.find({ customer: userId })
+        .populate("serviceId")
+        .populate("slotId")
+
+    return bookings;
+};
+
 export const bookingServices = {
     createBookingIntoDB,
     getAllBookingFromDB,
+    getMyBookingFromDB,
 }
