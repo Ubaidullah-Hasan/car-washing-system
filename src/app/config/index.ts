@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import path from "path";
 
-dotenv.config({ path: path.join(process.cwd(), ".env") });
+dotenv.config({ path: path.join(process.cwd(), ".env") }); // .env file ke ai path e giye read korbe => /Volumes/PROGRAMMING/Programing_Hero/LavelTwo/Assignment_All/assignment_four/car_washing_booking_system/.env
 
 export default {
   NODE_ENV: process.env.NODE_ENV,
