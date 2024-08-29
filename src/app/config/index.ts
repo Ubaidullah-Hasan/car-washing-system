@@ -12,4 +12,5 @@ export default {
   jwt_refresh_secret: process.env.JWT_REFRESH_SECRET,
   jwt_access_secret_expire_in: process.env.JWT_ACCESS_EXPIRES_IN,
   jwt_refresh_secret_expire_in: process.env.JWT_REFRESH_EXPIRES_IN,
+  img_bb_api_key: process.env.IMG_BB_API_KEY 
 };
