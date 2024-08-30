@@ -16,5 +16,9 @@ router.post(
   validateRequest(userValidationSchema.loginValidationSchema),
   userController.loginUser,
 );
+router.get(
+  "/:email",
+  userController.getUserByEmail,
+);
 
 export const userRoutes = router;

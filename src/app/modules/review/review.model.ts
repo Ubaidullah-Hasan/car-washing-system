@@ -4,7 +4,8 @@ import { TReview } from "./review.interface";
 const reviewSchema = new mongoose.Schema<TReview>({
     userId: {
         type: String,
-        required: true
+        required: true,
+        ref: "User"
     },
     feedback: {
         type: String,

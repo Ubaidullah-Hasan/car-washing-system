@@ -8,12 +8,12 @@ import { reviewController } from "./review.controller";
 const router = Router();
 
 router.post(
-    "/reviews",
+    "/",
     auth(USER_ROLE.user),
     validateRequest(reviewValidationSchema.createReview),
     reviewController.createReview,
 );
-router.get("/reviews", reviewController.getAllReview);
+router.get("/", reviewController.getAllReview);
 
 
 export const reviewRoutes = router;
