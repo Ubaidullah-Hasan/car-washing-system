@@ -5,7 +5,8 @@ const reviewSchema = new mongoose.Schema<TReview>({
     userId: {
         type: String,
         required: true,
-        ref: "User"
+        ref: "User",
+        unique: true
     },
     feedback: {
         type: String,

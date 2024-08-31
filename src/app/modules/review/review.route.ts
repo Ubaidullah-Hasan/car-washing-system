@@ -11,7 +11,7 @@ router.post(
     "/",
     auth(USER_ROLE.user),
     validateRequest(reviewValidationSchema.createReview),
-    reviewController.createReview,
+    reviewController.createOrUpdateReview,
 );
 router.get("/", reviewController.getAllReview);
 

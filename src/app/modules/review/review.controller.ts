@@ -4,11 +4,10 @@ import { catchAsync } from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { reviewServices } from "./review.services";
 
-const createReview = catchAsync(async (req, res, next) => {
+const createOrUpdateReview = catchAsync(async (req, res, next) => {
     const review = req.body;
-    console.log(review);
 
-    const result = await reviewServices.createReviewIntoDB(review);
+    const result = await reviewServices.createOrUpdateReviewIntoDB(review);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -30,6 +29,6 @@ const getAllReview = catchAsync(async (req, res, next) => {
 });
 
 export const reviewController = {
-    createReview,
+    createOrUpdateReview,
     getAllReview
 }
