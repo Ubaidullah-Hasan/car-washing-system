@@ -15,8 +15,14 @@ const getAllReviewFromDB = async () => {
     return reviews;
 }
 
+const getSingleReviewFromDB = async (userId: string) => {
+    const reviews = await ReviewModel.findOne({userId});
+    return reviews;
+}
+
 
 export const reviewServices = {
     createOrUpdateReviewIntoDB,
     getAllReviewFromDB,
+    getSingleReviewFromDB
 }

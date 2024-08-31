@@ -7,13 +7,20 @@ import { reviewController } from "./review.controller";
 
 const router = Router();
 
-router.post(
+router.patch(
     "/",
     auth(USER_ROLE.user),
     validateRequest(reviewValidationSchema.createReview),
     reviewController.createOrUpdateReview,
 );
+
 router.get("/", reviewController.getAllReview);
+
+router.get(
+    "/:userId",
+    auth(USER_ROLE.user),
+    reviewController.getAllReview
+);
 
 
 export const reviewRoutes = router;
