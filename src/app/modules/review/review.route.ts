@@ -19,7 +19,7 @@ router.get("/", reviewController.getAllReview);
 router.get(
     "/:userId",
     auth(USER_ROLE.user),
-    reviewController.getAllReview
+    reviewController.getSingleReview
 );
 
 

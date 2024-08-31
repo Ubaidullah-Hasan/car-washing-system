@@ -17,8 +17,15 @@ const createOrUpdateReview = catchAsync(async (req, res, next) => {
     });
 });
 
+export type TReviewQuery = { date: number, limit: number }
+
 const getAllReview = catchAsync(async (req, res, next) => {
-    const result = await reviewServices.getAllReviewFromDB();
+    const query = req.query;
+    const queryType: TReviewQuery = {
+        date: Number(query.date),
+        limit: Number(query.limit)
+    }
+    const result = await reviewServices.getAllReviewFromDB(queryType);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -29,7 +36,7 @@ const getAllReview = catchAsync(async (req, res, next) => {
 });
 
 const getSingleReview = catchAsync(async (req, res, next) => {
-    const {userId} = req.params;
+    const { userId } = req.params;
     const result = await reviewServices.getSingleReviewFromDB(userId);
 
     sendResponse(res, {
