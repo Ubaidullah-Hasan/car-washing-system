@@ -38,17 +38,7 @@ const getSingleService = catchAsync(async (req, res, next) => {
 });
 
 const getAllService = catchAsync(async (req, res, next) => {
-  const result = await serviceServices.getAllServiceFromDB();
-
-  if (result.length === 0) {
-    sendResponse(res, {
-      statusCode: httpStatus.NOT_FOUND,
-      success: false,
-      message: "No Data Found",
-      data: result,
-    });
-    return;
-  }
+  const result = await serviceServices.getAllServiceFromDB(req.query);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

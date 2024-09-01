@@ -1,5 +1,5 @@
 import config from "../../config";
-import { TService } from "./service.interface";
+import { TService, TServiceQueryParams } from "./service.interface";
 import { ServiceModel } from "./service.model";
 
 const createServiceIntoDB = async (payload: TService) => {
@@ -37,10 +37,31 @@ const getSingleServiceFromDB = async (id: string) => {
   return srevice;
 };
 
-const getAllServiceFromDB = async () => {
-  const srevices = await ServiceModel.find();
-  return srevices;
+const getAllServiceFromDB = async (queryParams: TServiceQueryParams) => {
+  const { sortPriceOrder, sortDurationOrder, searchTerm,limit } = queryParams;
+
+  // Initialize filter and sort options
+  const filterOptions: Partial<TService> = {};
+  const sortOptions: Record<string, 1 | -1> = {};
+
+  // Search by name
+  if (searchTerm) {
+    filterOptions.name = { $regex: searchTerm, $options: 'i' };
+  }
+
+  // Sort by price
+  if (sortPriceOrder) {
+    sortOptions.price = sortPriceOrder === 'descend' ? -1 : 1;
+  }
+
+  // Sort by duration
+  if (sortDurationOrder) {
+    sortOptions.duration = sortDurationOrder === 'descend' ? -1 : 1;
+  }
+  const services = await ServiceModel.find(filterOptions).sort(sortOptions).limit(limit as number);
+  return services;
 };
+
 
 const updateServiceIntoDB = async (id: string, payload: Partial<TService>) => {
   const result = await ServiceModel.findByIdAndUpdate(id, payload, {

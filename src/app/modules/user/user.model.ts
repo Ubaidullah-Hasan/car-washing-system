@@ -11,8 +11,8 @@ const UserSchema = new Schema<TUser>(
     phone: { type: String, required: true },
     role: {
       type: String,
-      enum: ["admin", "user"],
       default: "user",
+      enum: ["admin", "user"],
     },
     address: { type: String, required: true },
   },

@@ -6,7 +6,7 @@ import { TLoginUser, TUser } from "./user.interface";
 import { UserModel } from "./user.model";
 import { createToken } from "./user.utils";
 
-const createUserIntoDB = async (payload: TUser) => {
+const createUserIntoDB = async (payload: TUser) => {  
   const user = await UserModel.create(payload);
   return user;
 };

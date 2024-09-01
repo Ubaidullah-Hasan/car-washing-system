@@ -41,8 +41,8 @@ const createSlotIntoDB = async (payload: TSlot) => {
   return createdSlot;
 };
 
-const getAvailableSlots = async (query: Record<string, unknown>) => {
-  const { date, serviceId } = query;
+const getAvailableSlots = async (query: Record<string, unknown>, serviceId: string) => {
+  const { date } = query;
 
   // Build the query object for MongoDB
   const queryObj: Record<string, unknown> = { isBooked: "available" };

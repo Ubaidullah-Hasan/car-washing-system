@@ -18,11 +18,11 @@ const getAllReviewFromDB = async (query: TReviewQuery) => {
     if (date && limit) {
         reviews = await ReviewModel.find().sort({ date: -1 }).limit(limit).populate("userId");
     } else {
-        reviews = await ReviewModel.find().sort({ date: -1 });
+        reviews = await ReviewModel.find().sort({ date: -1 }).populate("userId");
     }
 
     const overallRating = reviews?.reduce((acc, currentValue) => currentValue.rating + acc / reviews.length, 0);
-    
+
     return { reviews, overallRating };
 }
 

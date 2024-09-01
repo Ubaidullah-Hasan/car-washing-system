@@ -17,9 +17,11 @@ const createUser = z.object({
       .string({ message: "Phone is required" })
       .min(10, { message: "Phone number must be at least 10 digits long" })
       .max(15, { message: "Phone number cannot exceed 15 digits" }),
-    role: z.enum(["admin", "user"], {
-      message: 'Role must be either "admin" or "user"',
-    }),
+    role: z
+      .enum(["admin", "user"], {
+        message: 'Role must be either "admin" or "user"',
+      })
+      .default("user"),
     address: z.string({ message: "Address is required" }),
   }),
 });
