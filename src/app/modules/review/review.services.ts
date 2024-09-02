@@ -21,9 +21,21 @@ const getAllReviewFromDB = async (query: TReviewQuery) => {
         reviews = await ReviewModel.find().sort({ date: -1 }).populate("userId");
     }
 
-    const overallRating = reviews?.reduce((acc, currentValue) => currentValue.rating + acc / reviews.length, 0);
+    const result = await ReviewModel.aggregate(
+        [
+            {
+                $group: {
+                    _id: null,
+                    avgRating: { $avg: "$rating" }
+                }
+            }
+        ]
+    )
+    const averageRating = result.length > 0 ? result[0].avgRating : null;
 
-    return { reviews, overallRating };
+    
+
+    return { reviews, averageRating };
 }
 
 const getSingleReviewFromDB = async (userId: string) => {
