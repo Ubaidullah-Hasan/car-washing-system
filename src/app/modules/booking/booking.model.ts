@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import { TBooking } from "./booking.interface";
+import { bookingStatus, paymentStatus } from "./booking.constant";
 
 // Mongoose schema
 const BookingSchema = new Schema<TBooking>(
@@ -18,12 +19,19 @@ const BookingSchema = new Schema<TBooking>(
       ref: "Slot",
       required: true,
     },
+    phone: {
+      type: String,
+      default: "",
+    },
+    name: {
+      type: String,
+      default: "",
+    },
     vehicleType: {
       type: String,
       enum: [
         "car",
         "truck",
-        "SUV",
         "van",
         "motorcycle",
         "bus",
@@ -48,6 +56,27 @@ const BookingSchema = new Schema<TBooking>(
     },
     registrationPlate: {
       type: String,
+      required: true,
+    },
+    paymentStatus: {
+      type: String,
+      enum: [paymentStatus.pending, paymentStatus.paid, paymentStatus.failed],
+      default: paymentStatus.pending,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: [bookingStatus.pending, bookingStatus.completed, bookingStatus.failed],
+      default: bookingStatus.pending,
+      required: true,
+    },
+    transactionId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    totalPrice: {
+      type: Number,
       required: true,
     },
   },
