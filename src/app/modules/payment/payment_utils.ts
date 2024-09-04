@@ -19,7 +19,7 @@ export const createPayment = async (paymentInfo: any) => {
         cus_postcode: "N/A",
         cus_country: "Bangladesh",
         type: "json",
-        success_url: 'http://localhost:5173/payment/success',
+        success_url: `http://localhost:3000/api/payments?transactionId=${paymentInfo.tran_id}&status=success`,
         fail_url: 'http://localhost:5173/payment/fail',
         cancel_url: 'http://localhost:5173/payment/cancel',
         cus_name: paymentInfo.cus_name,

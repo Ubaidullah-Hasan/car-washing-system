@@ -4,6 +4,7 @@ import { servicRoute } from "../modules/service/service.routes";
 import { slotRoutes } from "../modules/slot/slot.route";
 import { bookingRoutes } from "../modules/booking/booking.route";
 import { reviewRoutes } from "../modules/review/review.route";
+import { paymentRoutes } from "../modules/payment/payment.route";
 
 export const router = Router();
 const modulesRoutes = [
@@ -26,6 +27,10 @@ const modulesRoutes = [
   {
     path: "/bookings",
     route: bookingRoutes,
+  },
+  {
+    path: "/payments",
+    route: paymentRoutes,
   },
 ];
 
