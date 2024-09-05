@@ -28,18 +28,18 @@ const createBookingIntoDB = async (payload: TBooking, userEmail: string) => {
   const transactionId = 'TNX-' + Date.now();
 
 
-  // const bookingCreate = await BookingModel.create({
-  //   ...payload,
-  //   transactionId
-  // });
+  const bookingCreate = await BookingModel.create({
+    ...payload,
+    transactionId
+  });
 
-  // if (bookingCreate) {
-  //   await SlotModel.findOneAndUpdate(
-  //     {_id: payload.slotId}, 
-  //     {isBooked: slotStatus.booked},
-  //     {new: true}
-  //   )
-  // }
+  if (bookingCreate) {
+    await SlotModel.findOneAndUpdate(
+      {_id: payload.slotId}, 
+      {isBooked: slotStatus.booked},
+      {new: true}
+    )
+  }
 
   const paymentInfo = {
     amount: payload.totalPrice,
@@ -55,7 +55,7 @@ const createBookingIntoDB = async (payload: TBooking, userEmail: string) => {
 };
 
 const getAllBookingFromDB = async () => {
-  const bookings = await BookingModel.find()
+  const bookings = await BookingModel.find().sort({createdAt: -1})
     .populate("customer")
     .populate("serviceId")
     .populate("slotId");

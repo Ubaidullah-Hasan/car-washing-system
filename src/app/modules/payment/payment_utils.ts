@@ -36,4 +36,21 @@ export const createPayment = async (paymentInfo: any) => {
     }
 }
 
+export const verifyPayment = async (transactionId: string) => {
+    try {
+        const response = await axios.get(config.verify_payment_url!, {
+            params: {
+                request_id: transactionId,
+                store_id: config.store_id,
+                signature_key: config.signature_key,
+                type: "json"
+            }
+        })
+        return response.data;
+    } catch (error) {
+        throw new AppError(httpStatus.BAD_REQUEST, "Payment initiation failed!")
+    }
+
+}
+
 

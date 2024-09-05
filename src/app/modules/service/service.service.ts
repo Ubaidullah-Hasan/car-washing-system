@@ -28,7 +28,7 @@ const createServiceIntoDB = async (payload: TService) => {
     }
   }
 
-  const result = await ServiceModel.create({ ...payload, imageUrl });
+  const result = await ServiceModel.create({ ...payload, image: imageUrl });
   return result;
 };
 
@@ -38,11 +38,13 @@ const getSingleServiceFromDB = async (id: string) => {
 };
 
 const getAllServiceFromDB = async (queryParams: TServiceQueryParams) => {
-  const { sortPriceOrder, sortDurationOrder, searchTerm,limit } = queryParams;
+  const { sortPriceOrder, sortDurationOrder, searchTerm, limit } = queryParams;
 
   // Initialize filter and sort options
   const filterOptions: Partial<TService> = {};
   const sortOptions: Record<string, 1 | -1> = {};
+  
+  filterOptions.isDeleted = false;
 
   // Search by name
   if (searchTerm) {
@@ -58,6 +60,12 @@ const getAllServiceFromDB = async (queryParams: TServiceQueryParams) => {
   if (sortDurationOrder) {
     sortOptions.duration = sortDurationOrder === 'descend' ? -1 : 1;
   }
+
+  if (!sortPriceOrder || !sortDurationOrder) {
+    sortOptions.createdAt = -1
+  }
+
+
   const services = await ServiceModel.find(filterOptions).sort(sortOptions).limit(limit as number);
   return services;
 };
