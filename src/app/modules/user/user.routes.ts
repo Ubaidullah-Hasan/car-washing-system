@@ -21,4 +21,15 @@ router.get(
   userController.getUserByEmail,
 );
 
+router.get(
+  "/",
+  userController.getAllUser,
+);
+
+router.patch(
+  "/role/:userId",
+  validateRequest(userValidationSchema.userRoleUpdateValidationSchema),
+  userController.updateUserRole,
+);
+
 export const userRoutes = router;

@@ -5,8 +5,9 @@ import AppError from "../../errors/AppError";
 import { TLoginUser, TUser } from "./user.interface";
 import { UserModel } from "./user.model";
 import { createToken } from "./user.utils";
+import { USER_ROLE } from "./user.constant";
 
-const createUserIntoDB = async (payload: TUser) => {  
+const createUserIntoDB = async (payload: TUser) => {
   const user = await UserModel.create(payload);
   return user;
 };
@@ -45,23 +46,42 @@ const loginUser = async (payload: TLoginUser) => {
 };
 
 const getUserByEmailFromDB = async (email: string) => {
-  const user = await UserModel.findOne({email})
+  const user = await UserModel.findOne({ email })
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "User not found!");
   }
   return user;
 }
 
-const getAllUserFromDB = async (email: string) => {
-  const user = await UserModel.findOne({email})
+const getAllUserFromDB = async () => {
+  const user = await UserModel.find({ role: "user" })
   if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, "User not found!");
+    throw new AppError(httpStatus.NOT_FOUND, "No User found!");
   }
   return user;
+}
+
+const updateUserRole = async (userId: string, role: string) => {
+  const user = await UserModel.findById(userId);
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, "No User found!");
+  }
+  if (user.role === USER_ROLE.user) {
+    const result = await UserModel.findByIdAndUpdate(
+      userId,
+      { role },
+      { new: true }
+    );
+    return result;
+  } else {
+    throw new AppError(httpStatus.FORBIDDEN, "Role update not allowed!");
+  }
 }
 
 export const userServices = {
   createUserIntoDB,
   loginUser,
-  getUserByEmailFromDB
+  getUserByEmailFromDB,
+  getAllUserFromDB,
+  updateUserRole
 };

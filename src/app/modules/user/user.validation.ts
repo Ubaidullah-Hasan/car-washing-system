@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { USER_ROLE } from "./user.constant";
 
 const createUser = z.object({
   body: z.object({
@@ -33,7 +34,18 @@ const loginValidationSchema = z.object({
   }),
 });
 
+const userRoleUpdateValidationSchema = z.object({
+  body: z.object({
+    role: z.enum(
+      [USER_ROLE.admin, USER_ROLE.user],
+      { required_error: `User role must be ${USER_ROLE.admin} or ${USER_ROLE.user}` })
+  }),
+});
+
+
+
 export const userValidationSchema = {
   createUser,
   loginValidationSchema,
+  userRoleUpdateValidationSchema
 };

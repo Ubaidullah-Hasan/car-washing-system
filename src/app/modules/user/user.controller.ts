@@ -3,7 +3,7 @@ import httpStatus from "http-status";
 import { catchAsync } from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { userServices } from "./user.service";
-import AppError from "../../errors/AppError";
+import { Request, Response } from "express";
 
 /* eslint-disable no-console */
 const createUser = catchAsync(async (req, res, next) => {
@@ -31,7 +31,7 @@ const loginUser = catchAsync(async (req, res) => {
 const getUserByEmail = catchAsync(async (req, res) => {
   const { email } = req.params;
   const result = await userServices.getUserByEmailFromDB(email);
-  
+
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -42,8 +42,33 @@ const getUserByEmail = catchAsync(async (req, res) => {
 
 })
 
+const getAllUser = async (req: Request, res: Response) => {
+  const users = await userServices.getAllUserFromDB();
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User retrieved successfully!",
+    data: users,
+  });
+}
+const updateUserRole = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+  console.log(req.body);
+  const { role } = req.body;
+  const users = await userServices.updateUserRole(userId, role);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User update successfully!",
+    data: users,
+  });
+}
+
 export const userController = {
   createUser,
   loginUser,
-  getUserByEmail
+  getUserByEmail,
+  getAllUser,
+  updateUserRole,
 };

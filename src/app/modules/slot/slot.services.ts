@@ -24,9 +24,8 @@ const createSlotIntoDB = async (payload: TSlot) => {
   const timeSlots = generateTimeSlots(startTime, endTime, serviceDuration);
 
   const slot = await SlotModel.find({ date: payload.date, startTime: payload.startTime })
-  console.log({ slot });
 
-  if (slot) {
+  if (slot.length !== 0) {
     throw new AppError(httpStatus.BAD_REQUEST, "This time already booked.")
   }
 
