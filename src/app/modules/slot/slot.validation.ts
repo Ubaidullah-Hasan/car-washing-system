@@ -20,7 +20,7 @@ const createSlot = z.object({
 const updateSlotStatus = z.object({
   body: z.object({
     isBooked: z.enum([slotStatus.available, slotStatus.booked, slotStatus.canceled], {
-      message: `Status must be either ${slotStatus.available, slotStatus.booked, slotStatus.canceled}`,
+      message: `Status must be either ${slotStatus.available}, ${slotStatus.booked} or ${slotStatus.canceled}`,
     }).default(slotStatus.available).optional(),
   }),
 });

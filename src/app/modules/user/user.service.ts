@@ -52,6 +52,14 @@ const getUserByEmailFromDB = async (email: string) => {
   return user;
 }
 
+const getAllUserFromDB = async (email: string) => {
+  const user = await UserModel.findOne({email})
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, "User not found!");
+  }
+  return user;
+}
+
 export const userServices = {
   createUserIntoDB,
   loginUser,

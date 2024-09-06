@@ -23,22 +23,18 @@ const createSlotIntoDB = async (payload: TSlot) => {
   // Generate time slots
   const timeSlots = generateTimeSlots(startTime, endTime, serviceDuration);
 
-  // Create each slot sequentially
-  const createdSlot = [];
-  for (const slot of timeSlots) {
-    const slotPayload: TSlot = {
-      service: payload?.service,
-      date: payload?.date,
-      startTime: slot.startTime,
-      endTime: slot.endTime,
-    };
+  const slot = await SlotModel.find({ date: payload.date, startTime: payload.startTime })
+  console.log({ slot });
 
-    // Save slot in database
-    const result = await SlotModel.create(slotPayload);
-    createdSlot.push(result);
+  if (slot) {
+    throw new AppError(httpStatus.BAD_REQUEST, "This time already booked.")
   }
 
-  return createdSlot;
+  let result;
+  if (timeSlots) {
+    result = await SlotModel.create(payload);
+  }
+  return result;
 };
 
 const getAvailableSlotsByServiceId = async (query: Record<string, unknown>, serviceId: string) => {
@@ -83,7 +79,6 @@ const changeSlotStatusIntoDB = async (slotId: string, status: string) => {
       { isBooked: status },
       { new: true }
     );
-    console.log({updatedSlot});
     return updatedSlot;
   } else {
     throw new AppError(httpStatus.NOT_FOUND, "Slot not found!")

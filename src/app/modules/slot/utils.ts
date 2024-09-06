@@ -1,28 +1,21 @@
-import { ITimeSlot } from "./slot.interface";
+import httpStatus from "http-status";
+import AppError from "../../errors/AppError";
 
 export const generateTimeSlots = (
   startTime: string,
   endTime: string,
   serviceDuration: number,
-): ITimeSlot[] => {
-  const startHour = parseInt(startTime.split(":")[0], 10);
-  const endHour = parseInt(endTime.split(":")[0], 10);
-  const startMinutes = startHour * 60;
-  const endMinutes = endHour * 60;
-  const totalDuration = endMinutes - startMinutes;
+) => {
 
-  if (totalDuration <= 0 || totalDuration % serviceDuration !== 0) {
-    throw new Error(`Invalid time range or service duration, duration must be ${serviceDuration}`);
+  const startHour = startTime.split(":").map((string) => parseInt(string, 10));
+  const endHour = endTime.split(":").map((string) => parseInt(string, 10));
+
+  const startHourToMinutes = (startHour[0] * 60) + startHour[1];
+  const endHourToMinutes = (endHour[0] * 60) + endHour[1];
+  const inputTime = endHourToMinutes - startHourToMinutes;
+  if (inputTime === serviceDuration) {
+    return true;
   }
 
-  const numSlots = totalDuration / serviceDuration;
-  const timeSlots: ITimeSlot[] = [];
-
-  for (let i = 0; i < numSlots; i++) {
-    const slotStartTime = `${String(startHour + Math.floor(i * (serviceDuration / 60))).padStart(2, "0")}:00`;
-    const slotEndTime = `${String(startHour + Math.floor((i + 1) * (serviceDuration / 60))).padStart(2, "0")}:00`;
-    timeSlots.push({ startTime: slotStartTime, endTime: slotEndTime });
-  }
-
-  return timeSlots;
+  throw new AppError(httpStatus.BAD_REQUEST, `Invalid service duration, duration must be ${serviceDuration}`);
 };

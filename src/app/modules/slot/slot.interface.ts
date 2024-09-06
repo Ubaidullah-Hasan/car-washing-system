@@ -10,7 +10,3 @@ export type TSlot = {
   isBooked?: SlotStatus;
 };
 
-export interface ITimeSlot {
-  startTime: string;
-  endTime: string;
-}
