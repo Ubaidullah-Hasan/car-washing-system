@@ -4,6 +4,7 @@ import { ServiceModel } from "../service/service.model";
 import { TSlot } from "./slot.interface";
 import { SlotModel } from "./slot.model";
 import { generateTimeSlots } from "./utils";
+import { slotStatus } from "./slot.constant";
 
 const createSlotIntoDB = async (payload: TSlot) => {
   const isServiceExist = await ServiceModel.findById(payload?.service);
@@ -65,8 +66,34 @@ const getAvailableSlotsById = async (slotId: string) => {
   return slots;
 };
 
+const getAllSlotsFromDB = async () => {
+  const result = await SlotModel.find().populate("service");
+  return result;
+}
+
+const changeSlotStatusIntoDB = async (slotId: string, status: string) => {
+  const slot = await SlotModel.findById(slotId);
+
+  if (slot?.isBooked === slotStatus.booked) {
+    throw new AppError(httpStatus.BAD_REQUEST, "Slot is already booked!")
+  }
+  if (slot) {
+    const updatedSlot = await SlotModel.findByIdAndUpdate(
+      slotId,
+      { isBooked: status },
+      { new: true }
+    );
+    console.log({updatedSlot});
+    return updatedSlot;
+  } else {
+    throw new AppError(httpStatus.NOT_FOUND, "Slot not found!")
+  }
+}
+
 export const slotServices = {
   createSlotIntoDB,
   getAvailableSlotsByServiceId,
   getAvailableSlotsById,
+  getAllSlotsFromDB,
+  changeSlotStatusIntoDB,
 };

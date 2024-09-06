@@ -12,7 +12,7 @@ export const generateTimeSlots = (
   const totalDuration = endMinutes - startMinutes;
 
   if (totalDuration <= 0 || totalDuration % serviceDuration !== 0) {
-    throw new Error("Invalid time range or service duration");
+    throw new Error(`Invalid time range or service duration, duration must be ${serviceDuration}`);
   }
 
   const numSlots = totalDuration / serviceDuration;
