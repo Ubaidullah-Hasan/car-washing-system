@@ -68,6 +68,7 @@ const getMyBookingFromDB = async (userEmail: string) => {
   const userId = user?.id;
 
   const bookings = await BookingModel.find({ customer: userId })
+    .populate("customer")
     .populate("serviceId")
     .populate("slotId");
 

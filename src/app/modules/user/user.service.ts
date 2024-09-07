@@ -2,7 +2,7 @@
 import httpStatus from "http-status";
 import config from "../../config";
 import AppError from "../../errors/AppError";
-import { TLoginUser, TUser } from "./user.interface";
+import { TLoginUser, TUpdateInfo, TUser } from "./user.interface";
 import { UserModel } from "./user.model";
 import { createToken } from "./user.utils";
 import { USER_ROLE } from "./user.constant";
@@ -78,10 +78,27 @@ const updateUserRole = async (userId: string, role: string) => {
   }
 }
 
+const updateProfileIntoDB = async (payload: TUpdateInfo, userEmail: string) => {
+  const user = await UserModel.findOne({ email: userEmail });
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, 'User not found');
+  }
+
+  // Update the user's profile information
+  user.name = payload.name || user.name;
+  user.phone = payload.phone || user.phone;
+  user.address = payload.address || user.address;
+
+  // Save the updated user profile
+  const result = await user.save();
+  return result;
+}
+
 export const userServices = {
   createUserIntoDB,
   loginUser,
   getUserByEmailFromDB,
   getAllUserFromDB,
-  updateUserRole
+  updateUserRole,
+  updateProfileIntoDB
 };

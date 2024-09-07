@@ -32,4 +32,10 @@ router.patch(
   userController.updateUserRole,
 );
 
+router.patch(
+  "/:userEmail",
+  // validateRequest(userValidationSchema.userRoleUpdateValidationSchema),
+  userController.updateProfile,
+);
+
 export const userRoutes = router;
