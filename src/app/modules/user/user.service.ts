@@ -79,19 +79,20 @@ const updateUserRole = async (userId: string, role: string) => {
 }
 
 const updateProfileIntoDB = async (payload: TUpdateInfo, userEmail: string) => {
-  const user = await UserModel.findOne({ email: userEmail });
+  const user = await UserModel.findOneAndUpdate(
+    { email: userEmail }, 
+    {
+      name: payload.name,
+      phone: payload.phone,
+      address: payload.address,
+    },
+    { new: true}
+  );
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'User not found');
   }
 
-  // Update the user's profile information
-  user.name = payload.name || user.name;
-  user.phone = payload.phone || user.phone;
-  user.address = payload.address || user.address;
-
-  // Save the updated user profile
-  const result = await user.save();
-  return result;
+  return user;
 }
 
 export const userServices = {

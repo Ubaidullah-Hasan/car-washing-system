@@ -39,7 +39,8 @@ const getAllBookings = catchAsync(async (req, res, next) => {
 });
 
 const getMyBookings = catchAsync(async (req, res, next) => {
-  const result = await bookingServices.getMyBookingFromDB(req.user?.email);
+  const { userEmail } = req.params;
+  const result = await bookingServices.getMyBookingFromDB(userEmail);
 
   if (result.length === 0) {
     sendResponse(res, {

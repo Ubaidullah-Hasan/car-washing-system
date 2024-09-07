@@ -16,7 +16,7 @@ router.post(
 router.get("/", auth(USER_ROLE.admin), bookingController.getAllBookings);
 
 router.get(
-  "/my-bookings",
+  "/my-bookings/:userEmail",
   auth(USER_ROLE.user),
   bookingController.getMyBookings,
 );
