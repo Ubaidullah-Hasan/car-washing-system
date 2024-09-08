@@ -15,4 +15,5 @@ router.patch(
     slotController.changeSlotStatus
 );
 
+
 export const slotRoutes = router;

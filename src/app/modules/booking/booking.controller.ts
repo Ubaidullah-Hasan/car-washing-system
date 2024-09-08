@@ -3,6 +3,7 @@ import httpStatus from "http-status";
 import { catchAsync } from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { bookingServices } from "./booking.services";
+import { Request, Response } from "express";
 
 const createBooking = catchAsync(async (req, res, next) => {
   const result = await bookingServices.createBookingIntoDB(
@@ -63,5 +64,5 @@ const getMyBookings = catchAsync(async (req, res, next) => {
 export const bookingController = {
   createBooking,
   getAllBookings,
-  getMyBookings,
+  getMyBookings
 };

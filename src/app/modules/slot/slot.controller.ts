@@ -60,12 +60,14 @@ const changeSlotStatus = async (req: Request, res: Response) => {
     message: "Slot status updated successfully",
     data: slot,
   });
-}
+};
+
+
 
 export const slotController = {
   createSlot,
   getAvailableSlots,
   getSingleAvailableSlotsById,
   getAllSlot,
-  changeSlotStatus,
+  changeSlotStatus, 
 };
