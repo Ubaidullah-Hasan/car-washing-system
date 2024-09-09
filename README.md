@@ -42,7 +42,7 @@ git clone https://github.com/Ubaidullah-Hasan/car-washing-system.git
 * Open terminal or command prompt then write <code>npm install</code>
 * create .env file
 ```bash
-PORT=6000
+PORT=3000
 DATABASE_URL="your mongodb atlas database url past here"
 NODE_ENV=development
 SALT_ROUND=12
@@ -62,4 +62,4 @@ JWT_REFRESH_EXPIRES_IN=365d
 ## Live URL
 
 The Car Wash Booking System is deployed and can be accessed at:
-[https://car-wash-booking-system-gilt.vercel.app/](https://car-wash-booking-system-gilt.vercel.app/)
+[https://car-wash-booking-system-server-henna.vercel.app/](https://car-wash-booking-system-server-henna.vercel.app/)
