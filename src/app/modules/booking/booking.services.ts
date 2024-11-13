@@ -50,7 +50,6 @@ const createBookingIntoDB = async (payload: TBooking, userEmail: string) => {
   }
   const result = createPayment(paymentInfo);
 
-
   return result;
 };
 

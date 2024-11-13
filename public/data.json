@@ -1,0 +1,49 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "title": "Apple iPhone 13",
+            "category": "smartphones",
+            "price": 799,
+            "description": "The latest iPhone with A15 Bionic chip and improved camera.",
+            "image": "https://example.com/images/iphone13.jpg",
+            "rating": 4.7
+        },
+        {
+            "id": 2,
+            "title": "Samsung Galaxy S21",
+            "category": "smartphones",
+            "price": 699,
+            "description": "A powerful smartphone with a stunning display and camera.",
+            "image": "https://example.com/images/galaxy-s21.jpg",
+            "rating": 4.5
+        },
+        {
+            "id": 3,
+            "title": "Google Pixel 6",
+            "category": "smartphones",
+            "price": 599,
+            "description": "The best of Google with an amazing camera and software experience.",
+            "image": "https://example.com/images/pixel6.jpg",
+            "rating": 4.6
+        },
+        {
+            "id": 4,
+            "title": "OnePlus 9",
+            "category": "smartphones",
+            "price": 729,
+            "description": "Fast performance and a great camera at an affordable price.",
+            "image": "https://example.com/images/oneplus9.jpg",
+            "rating": 4.4
+        },
+        {
+            "id": 5,
+            "title": "Xiaomi Mi 11",
+            "category": "smartphones",
+            "price": 749,
+            "description": "A flagship smartphone with a beautiful display and powerful specs.",
+            "image": "https://example.com/images/mi11.jpg",
+            "rating": 4.3
+        }
+    ]
+}
