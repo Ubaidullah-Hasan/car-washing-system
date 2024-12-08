@@ -8,6 +8,10 @@
     ],
     "routes": [
         {
+            "src": "/data.json",
+            "dest": "public/data.json"
+        },
+        {
             "src": "/(.*)",
             "dest": "dist/server.js"
         }

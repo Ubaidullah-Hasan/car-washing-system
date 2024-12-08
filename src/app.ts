@@ -8,7 +8,7 @@ import path from 'path';
 const app: Application = express();
 
 // parser
-app.use(cors({ origin: ['https://car-wash-booking-client.vercel.app', "https://car-wash-booking-client.vercel.app"], credentials: true }));
+app.use(cors({ origin: ['https://car-wash-booking-client.vercel.app', "http://localhost:5173"], credentials: true }));
 app.use(express.json());
 
 

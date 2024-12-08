@@ -5,6 +5,9 @@ export type TService = {
   duration: number;
   image: string;
   isDeleted?: boolean;
+  isPopular?: boolean; 
+  isBestSale?: boolean; 
+  offer?: number; 
 };
 
 export type TServiceQueryParams = {
