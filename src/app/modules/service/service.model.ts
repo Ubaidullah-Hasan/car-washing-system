@@ -27,8 +27,14 @@ const ServiceSchema = new Schema<TService>(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
   },
 );
+
+// add discountedPrice field when get service
+ServiceSchema.virtual('discountePrice').get(function () {
+  return this.price - (this.price * this.offer) / 100;
+});
 
 // Create the Mongoose model
 export const ServiceModel = model<TService>("Service", ServiceSchema);

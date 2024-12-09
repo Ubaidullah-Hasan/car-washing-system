@@ -7,7 +7,7 @@ export type TService = {
   isDeleted?: boolean;
   isPopular?: boolean; 
   isBestSale?: boolean; 
-  offer?: number; 
+  offer: number; 
 };
 
 export type TServiceQueryParams = {

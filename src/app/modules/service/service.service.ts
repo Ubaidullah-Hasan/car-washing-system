@@ -87,10 +87,26 @@ const deleteServiceFromDB = async (id: string) => {
   return result;
 };
 
+const getOfferServices = async() => {
+  const result = await ServiceModel.find({ offer: { $gt: 0 } });
+  return result;
+}
+const getBestSaleServices = async() => {
+  const result = await ServiceModel.find({ isBestSale: true });
+  return result;
+}
+const getPopularServices = async() => {
+  const result = await ServiceModel.find({ isPopular: true });
+  return result;
+}
+
 export const serviceServices = {
   createServiceIntoDB,
   getSingleServiceFromDB,
   getAllServiceFromDB,
   updateServiceIntoDB,
   deleteServiceFromDB,
+  getOfferServices,
+  getBestSaleServices,
+  getPopularServices,
 };

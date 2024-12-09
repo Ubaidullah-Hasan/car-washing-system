@@ -72,10 +72,44 @@ const deleteService = catchAsync(async (req, res, next) => {
   });
 });
 
+const getOfferServices = catchAsync(async (req, res, next) => {
+  const result = await serviceServices.getOfferServices();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Offer services retrived successfully",
+    data: result,
+  });
+});
+const getBestServices = catchAsync(async (req, res, next) => {
+  const result = await serviceServices.getBestSaleServices();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Best sale services retrived successfully",
+    data: result,
+  });
+});
+const getPopularServices = catchAsync(async (req, res, next) => {
+  const result = await serviceServices.getPopularServices();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Popular services retrived successfully",
+    data: result,
+  });
+});
+
 export const serviceController = {
   createService,
   getSingleService,
   getAllService,
   updateService,
   deleteService,
+  getOfferServices,
+  getBestServices,
+  getPopularServices,
 };

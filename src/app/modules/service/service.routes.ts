@@ -15,6 +15,10 @@ router.post(
   validateRequest(serviceValidationSchema.createService),
   serviceController.createService,
 );
+router.get("/offers", serviceController.getOfferServices);
+router.get("/bestsale", serviceController.getBestServices);
+router.get("/popular", serviceController.getPopularServices);
+// hop! /:id must be below /ofers, bestsale because /:id is dynamic
 router.get("/:id", serviceController.getSingleService);
 router.get("/", serviceController.getAllService);
 
